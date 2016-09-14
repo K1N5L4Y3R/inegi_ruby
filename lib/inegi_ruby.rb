@@ -1,5 +1,7 @@
 require "inegi_ruby/version"
 
-module InegiRuby
-  # Your code goes here...
+module Inegi
+  class Client
+    #code
+  end
 end
