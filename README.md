@@ -1,8 +1,6 @@
-# InegiRuby
+# inegi_ruby
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/inegi_ruby`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Inegifacil's REST service wrapper for Ruby apps
 
 ## Installation
 
@@ -22,15 +20,41 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+inegi = Inegi::Client.new
 
-## Development
+# Returns information for aggregated Mexican population
+puts inegi.indexes "1002000001"
+# {
+#   indicator: "1002000001",
+#   values: [
+#     {
+#       period: "1990",
+#       value: "91829",
+#       units: "Número de personas"
+#     },
+#     ...
+#   ]
+# }
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+# Returns information for population in specific location (Puebla)
+puts inegi.indexes "1002000001", "21000"
+# {
+#   indicator: "1002000001",
+#   values: [
+#     {
+#       period: "1990",
+#       value: "9182",
+#       units: "Número de personas"
+#     },
+#     ...
+#   ]
+# }
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+## Changelog
 
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/inegi_ruby.
-
+#### 0.1.0
+* Get indexes for an indicator
+* `#indexes` accepts both an indicator and an optional location
+* Indicators and locations are validated
