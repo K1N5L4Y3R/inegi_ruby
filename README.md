@@ -18,6 +18,9 @@ Or install it yourself as:
 
     $ gem install inegi_ruby
 
+## Documentation
+[Rubydoc](http://www.rubydoc.info/github/K1N5L4Y3R/inegi_ruby)
+
 ## Usage
 
 ```ruby
@@ -53,6 +56,9 @@ puts inegi.indexes "1002000001", "21000"
 ```
 
 ## Changelog
+
+#### 0.1.1
+* Fix gemspec to allow rubygems.org
 
 #### 0.1.0
 * Get indexes for an indicator
