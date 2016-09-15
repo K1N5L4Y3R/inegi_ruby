@@ -17,8 +17,8 @@ module Inegi
     #   validate_index("a")           # false
     # @param index [String] Index to be evaluated
     def self.validate_index(index)
-      index_regex = /\A\d{10}\z/
-      index =~ index_regex
+      i_regex = /\A\d{10}\z/
+      index =~ i_regex || raise(ArgumentError.new("Given index is not valid"))
     end
   end
 end
