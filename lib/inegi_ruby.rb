@@ -22,12 +22,36 @@ module Inegi
     end
     
     ##
-    # After validating indicator, call INEGI's service and return indexes.
+    # After validating indicator, call Inegifacil's service and return indexes.
     # @example
     #   indexes("5300000041") # HTTParty::Response[...]
     def indexes(indicator)
       self.class.validate_indicator indicator
-      self.class.get "/#{indicator}"
+      indexes = self.class.get "/#{indicator}"
+      self.class.format_indexes indexes
+    end
+    
+    ##
+    # From a hash with Inegifacil's structure, return a more readable one
+    # @example
+    #   hash = { "header": { "INDICADOR": "XXXXXXXXXX" },
+    #            "indices": [{ "TIME_PERIOD": "YYYY", "OBS_VALUE": "Z" }] }
+    # 
+    #   format_indexes(hash) # { indicator: "XXXXXXXXXX", values: [..] }
+    #                        # +values+ contains +period+, +value+ and +units+
+    # @param hash [Hash] A hash containing results from service
+    # @see http://inegifacil.com/rest/indice/1002000001
+    def self.format_indexes(hash)
+      result = { indicator: hash["header"]["INDICADOR"] }
+      values = hash["indices"].map do |v|
+        {
+          period: v["TIME_PERIOD"],
+          value: v["OBS_VALUE"],
+          units: v["OBS_UNIT"]
+        }
+      end
+      values = { values: values }
+      result.merge values
     end
   end
 end
