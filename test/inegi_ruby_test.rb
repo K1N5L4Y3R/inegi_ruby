@@ -9,18 +9,17 @@ class InegiRubyTest < TestHelper
     assert_instance_of Inegi::Client, @inegi
   end
   
-  def test_validate_index
-    assert Inegi::Client.validate_index("5300000041")
-    assert Inegi::Client.validate_index("1002000065")
-    assert Inegi::Client.validate_index("3108001003")
-    assert_raises (ArgumentError) { Inegi::Client.validate_index("53000000412") }
-    assert_raises (ArgumentError) { Inegi::Client.validate_index("") }
-    assert_raises (ArgumentError) { Inegi::Client.validate_index("a") }
+  def test_validate_indicator
+    assert Inegi::Client.validate_indicator("5300000041")
+    assert Inegi::Client.validate_indicator("1002000065")
+    assert Inegi::Client.validate_indicator("3108001003")
+    assert_raises (ArgumentError) { Inegi::Client.validate_indicator("53000000412") }
+    assert_raises (ArgumentError) { Inegi::Client.validate_indicator("") }
+    assert_raises (ArgumentError) { Inegi::Client.validate_indicator("a") }
   end
   
-  def test_aggregate_returns_aggregated_indexes
-    skip "not implemented"
-    aggregate = @inegi.aggregate("5300000041")
-    assert_equal expected, actual, "expected `actual` to be `expected`"
+  def test_indexes_makes_correct_request
+    indexes = @inegi.indexes("5300000041")
+    assert_equal "http://inegifacil.com/rest/indice/5300000041", indexes.request.last_uri.to_s
   end
 end
