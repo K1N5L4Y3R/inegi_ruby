@@ -5,7 +5,16 @@ class InegiRubyTest < TestHelper
     @inegi = Inegi::Client.new
   end
   
-  def test_base_url
-    assert_equal "http://inegifacil.com/rest/indice", Inegi::Client::BASE_URL
+  def test_general
+    assert_instance_of Inegi::Client, @inegi
+  end
+  
+  def test_validate_index
+    assert Inegi::Client.validate_index("5300000041")
+    assert Inegi::Client.validate_index("1002000065")
+    assert Inegi::Client.validate_index("3108001003")
+    assert !Inegi::Client.validate_index("53000000412")
+    assert !Inegi::Client.validate_index("")
+    assert !Inegi::Client.validate_index("a")
   end
 end
