@@ -64,4 +64,13 @@ class InegiRubyTest < TestHelper
     assert_equal "15160369", indexes[:values].first[:value]
     assert_equal "Número de personas", indexes[:values].first[:units]
   end
+  
+  def test_nested_indexes
+    indexes = @inegi.indexes "1002000001", "21000"
+    assert_equal "1002000001", indexes[:indicator]
+    assert_equal 13, indexes[:values].length
+    assert_equal "1910", indexes[:values].first[:period]
+    assert_equal "1101600", indexes[:values].first[:value]
+    assert_equal "Número de personas", indexes[:values].first[:units]
+  end
 end

@@ -25,9 +25,13 @@ module Inegi
     # After validating indicator, call Inegifacil's service and return indexes.
     # @example
     #   indexes("5300000041") # HTTParty::Response[...]
-    def indexes(indicator)
+    # @param indicator [String] 10 digits indicator
+    # @param location [String] 5 digits location indicator
+    def indexes(indicator, location = nil)
       self.class.validate_indicator indicator
-      indexes = self.class.get "/#{indicator}"
+      # TODO: Validate location indicator
+      path = "/#{indicator}/#{location}"
+      indexes = self.class.get path
       self.class.format_indexes indexes
     end
     
