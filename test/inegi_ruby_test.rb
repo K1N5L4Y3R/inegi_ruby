@@ -18,6 +18,15 @@ class InegiRubyTest < TestHelper
     assert_raises (ArgumentError) { Inegi::Client.validate_indicator("a") }
   end
   
+  def test_validate_location
+    assert Inegi::Client.validate_location("53000")
+    assert Inegi::Client.validate_location("10020")
+    assert Inegi::Client.validate_location("31080")
+    assert_raises (ArgumentError) { Inegi::Client.validate_location("aaaaa") }
+    assert_raises (ArgumentError) { Inegi::Client.validate_location("") }
+    assert_raises (ArgumentError) { Inegi::Client.validate_location("a") }
+  end
+  
   def test_get_makes_correct_request
     indexes = Inegi::Client.get("/5300000041")
     assert_equal "http://inegifacil.com/rest/indice/5300000041", indexes.request.last_uri.to_s
